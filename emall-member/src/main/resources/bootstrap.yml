@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: emall-member
+
+  cloud:
+    nacos:
+      config:
+        file-extension: yml #指定yml格式的配置
+        server-addr: 127.0.0.1:8848
+        namespace: f6092858-6479-47f3-b1c5-c76b5cf11e7e
+        group: dev
