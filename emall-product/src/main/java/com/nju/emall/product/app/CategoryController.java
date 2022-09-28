@@ -1,18 +1,16 @@
-package com.nju.emall.product.controller;
+package com.nju.emall.product.app;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import com.nju.emall.product.service.CategoryBrandRelationService;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import com.nju.emall.product.entity.CategoryEntity;
 import com.nju.emall.product.service.CategoryService;
-import com.nju.common.utils.PageUtils;
 import com.nju.common.utils.R;
 
 
@@ -54,8 +52,20 @@ public class CategoryController {
     }
 
     /**
-     * 保存
+     * 级联更新所有关联的数据
+     *
+     * @CacheEvict:失效模式
+     * @CachePut:双写模式，需要有返回值
+     * 1、同时进行多种缓存操作：@Caching
+     * 2、指定删除某个分区下的所有数据 @CacheEvict(value = "category",allEntries = true)
+     * 3、存储同一类型的数据，都可以指定为同一分区
+     * @param category
      */
+    // @Caching(evict = {
+    //         @CacheEvict(value = "category",key = "'getLevel1Categorys'"),
+    //         @CacheEvict(value = "category",key = "'getCatalogJson'")
+    // })
+    @CacheEvict(value = {"category"},key = "'getLevel1Categorys'",allEntries = true)
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/save")
     public R save(@RequestBody CategoryEntity category){

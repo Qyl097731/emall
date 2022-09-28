@@ -13,9 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @date:2022/9/20 9:12
  * @author: qyl
  */
-@EnableTransactionManagement
 @Configuration
-@MapperScan("com.nju.emall.product.dao")
 public class MybatisPlusConfig {
 
     /**

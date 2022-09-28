@@ -1,4 +1,4 @@
-package com.nju.emall.product.controller;
+package com.nju.emall.product.app;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.nju.emall.product.entity.AttrAttrgroupRelationEntity;
 import com.nju.emall.product.entity.BrandEntity;
 import com.nju.emall.product.vo.BrandVo;
 import org.apache.commons.collections.CollectionUtils;

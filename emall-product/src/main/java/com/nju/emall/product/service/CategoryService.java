@@ -3,6 +3,7 @@ package com.nju.emall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.nju.common.utils.PageUtils;
 import com.nju.emall.product.entity.CategoryEntity;
+import com.nju.emall.product.vo.Catelog2Vo;
 
 import java.util.List;
 import java.util.Map;
@@ -23,5 +24,9 @@ public interface CategoryService extends IService<CategoryEntity> {
     void removeMenuByIds(List<Long> ids);
 
     Long[] findCatelogPath(Long catelogId);
+
+    List<CategoryEntity> getLevel1Categorys();
+
+    Map<String, List<Catelog2Vo>> getCatalogJson();
 }
 

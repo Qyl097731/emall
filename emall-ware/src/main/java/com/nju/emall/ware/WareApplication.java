@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan("com.nju.emall.ware.dao")
 @EnableDiscoveryClient
 @SpringBootApplication
+@EnableFeignClients(basePackages = "com.nju.emall.ware.feign")
 public class WareApplication {
 
     public static void main(String[] args) {

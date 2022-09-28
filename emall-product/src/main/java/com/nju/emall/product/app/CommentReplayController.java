@@ -1,4 +1,4 @@
-package com.nju.emall.product.controller;
+package com.nju.emall.product.app;
 
 import java.util.Arrays;
 import java.util.Map;

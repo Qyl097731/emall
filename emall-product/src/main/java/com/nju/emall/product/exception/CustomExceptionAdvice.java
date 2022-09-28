@@ -22,7 +22,7 @@ import java.util.Map;
  * @author: qyl
  */
 @Slf4j
-@RestControllerAdvice(basePackages = {"com.nju.emall.product.controller"})
+//@RestControllerAdvice(basePackages = {"com.nju.emall.product.controller"})
 public class CustomExceptionAdvice {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)

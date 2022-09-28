@@ -1,20 +1,18 @@
 package com.nju.emall.ware.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.nju.emall.ware.vo.MergeVo;
+import com.nju.emall.ware.vo.PurchaseDoneVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.nju.emall.ware.entity.PurchaseEntity;
 import com.nju.emall.ware.service.PurchaseService;
 import com.nju.common.utils.PageUtils;
 import com.nju.common.utils.R;
-
 
 
 /**
@@ -34,19 +32,46 @@ public class PurchaseController {
      * 列表
      */
     @RequestMapping("/list")
-    public R list(@RequestParam Map<String, Object> params){
+    public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = purchaseService.queryPage(params);
 
         return R.ok().put("page", page);
     }
 
+    /**
+     * 列表
+     */
+    @GetMapping("unreceive/list")
+    public R unreceiveList(@RequestParam Map<String, Object> params) {
+        PageUtils page = purchaseService.queryPageUnreceivePurchase(params);
+
+        return R.ok().put("page", page);
+    }
+
+    @PostMapping("merge")
+    public R merge(@RequestBody MergeVo mergeVo) throws Exception {
+        purchaseService.mergePurchase(mergeVo);
+        return R.ok();
+    }
+
+    @PostMapping("received")
+    public R received(@RequestBody List<Long> ids) {
+        purchaseService.received(ids);
+        return R.ok();
+    }
+
+    @PostMapping("done")
+    public R done(@RequestBody PurchaseDoneVo vo) {
+        purchaseService.done(vo);
+        return R.ok();
+    }
 
     /**
      * 信息
      */
     @RequestMapping("/info/{id}")
-    public R info(@PathVariable("id") Long id){
-		PurchaseEntity purchase = purchaseService.getById(id);
+    public R info(@PathVariable("id") Long id) {
+        PurchaseEntity purchase = purchaseService.getById(id);
 
         return R.ok().put("purchase", purchase);
     }
@@ -55,8 +80,8 @@ public class PurchaseController {
      * 保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody PurchaseEntity purchase){
-		purchaseService.save(purchase);
+    public R save(@RequestBody PurchaseEntity purchase) {
+        purchaseService.save(purchase);
 
         return R.ok();
     }
@@ -65,8 +90,8 @@ public class PurchaseController {
      * 修改
      */
     @RequestMapping("/update")
-    public R update(@RequestBody PurchaseEntity purchase){
-		purchaseService.updateById(purchase);
+    public R update(@RequestBody PurchaseEntity purchase) {
+        purchaseService.updateById(purchase);
 
         return R.ok();
     }
@@ -75,8 +100,8 @@ public class PurchaseController {
      * 删除
      */
     @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] ids){
-		purchaseService.removeByIds(Arrays.asList(ids));
+    public R delete(@RequestBody Long[] ids) {
+        purchaseService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

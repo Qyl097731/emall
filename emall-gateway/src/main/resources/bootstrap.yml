@@ -9,4 +9,3 @@ spring:
         server-addr: 127.0.0.1:8848
         namespace: 2ee673d4-45cc-4f72-9f7e-6fd7adf6e4e5
         group: dev
-        refreshable-dataids: emall-gateway.yml
