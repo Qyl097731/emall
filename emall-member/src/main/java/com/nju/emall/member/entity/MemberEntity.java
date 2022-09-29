@@ -23,7 +23,6 @@ public class MemberEntity implements Serializable {
 	 * id
 	 */
 	@TableId
-
 	private Long id;
 	/**
 	 * 会员等级id
@@ -94,4 +93,18 @@ public class MemberEntity implements Serializable {
 	 */
 	private Date createTime;
 
+	/**
+	 * 社交登录UID
+	 */
+	private String socialUid;
+
+	/**
+	 * 社交登录TOKEN
+	 */
+	private String accessToken;
+
+	/**
+	 * 社交登录过期时间
+	 */
+	private long expiresIn;
 }

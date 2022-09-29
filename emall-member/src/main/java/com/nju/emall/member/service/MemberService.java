@@ -3,6 +3,9 @@ package com.nju.emall.member.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.nju.common.utils.PageUtils;
 import com.nju.emall.member.entity.MemberEntity;
+import com.nju.emall.member.vo.MemberUserLoginVo;
+import com.nju.emall.member.vo.MemberUserRegisterVo;
+import com.nju.emall.member.vo.SocialUser;
 
 import java.util.Map;
 
@@ -16,5 +19,11 @@ import java.util.Map;
 public interface MemberService extends IService<MemberEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void register(MemberUserRegisterVo vo);
+
+    MemberEntity login(MemberUserLoginVo vo);
+
+    MemberEntity login(SocialUser vo);
 }
 
