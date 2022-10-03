@@ -17,6 +17,7 @@
         <module>renren-fast</module>
         <module>renren-generator</module>
         <module>emall-third-party</module>
+        <module>emall-cart</module>
     </modules>
 
     <properties>

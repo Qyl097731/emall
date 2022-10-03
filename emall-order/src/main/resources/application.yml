@@ -1,20 +1,32 @@
-spring:
-  datasource:
-    username: root
-    password: root
-    url: jdbc:mysql://192.168.137.129:3306/emall_oms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848
-  application:
-    name: emall-order
-
-mybatis-plus:
-  mapper-locations: classpath:/mapper/**/*.xml
-  global-config:
-    db-config:
-      id-type: auto
-server:
-  port: 9000
+#spring:
+#  datasource:
+#    username: root
+#    password: root
+#    url: jdbc:mysql://192.168.137.129:3306/emall_oms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 127.0.0.1:8848
+#  rabbitmq:
+#    host: 192.168.137.129
+#    port: 5672
+#    virtual-host: /
+#    # 消息到达服务器 就会返回 异步确认 confirm callback
+#    publisher-confirm-type: correlated
+#    # 开启发送消息抵达队列的确认
+#    publisher-returns: true
+#    # 只要抵达队列，以异步发送优先回调我们的return confirm
+#    template:
+#      mandatory: true
+#    # 设置手动消费者确认收到消息
+#    listener:
+#      simple:
+#        acknowledge-mode: manual
+#mybatis-plus:
+#  mapper-locations: classpath:/mapper/**/*.xml
+#  global-config:
+#    db-config:
+#      id-type: auto
+#server:
+#  port: 9000
