@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nju.emall.product.dao.AttrGroupDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.nju.emall.product.entity.AttrGroupEntity" id="attrGroupMap">
+        <result property="attrGroupId" column="attr_group_id"/>
+        <result property="attrGroupName" column="attr_group_name"/>
+        <result property="sort" column="sort"/>
+        <result property="descript" column="descript"/>
+        <result property="icon" column="icon"/>
+        <result property="catelogId" column="catelog_id"/>
+    </resultMap>
+    <resultMap id="spuItemAttrGroupVo" type="com.nju.emall.product.vo.SpuItemAttrGroupVo">
+        <result property="groupName" column="attr_group_name"/>
+        <collection property="attrs" ofType="com.nju.emall.product.vo.Attr">
+            <result property="attrName" column="attr_name"/>
+            <result property="attrValue" column="attr_value"/>
+        </collection>
+    </resultMap>
+
+    <delete id="deleteRelation">
+        delete from pms_attr_attrgroup_relation where
+        <foreach collection="list" item="record" separator=" or" close=")" open="(">
+            attr_id = #{record.attrId} and attr_group_id = #{record.attrGroupId}
+        </foreach>
+    </delete>
+    <select id="getAttrGroupWithAttrsBySpuId" resultMap="spuItemAttrGroupVo">
+        select g.attr_group_name,v.attr_name,v.attr_value
+        from pms_attr_group g
+        left join pms_attr_attrgroup_relation r on g.attr_group_id = r.attr_group_id
+        left join pms_product_attr_value v on v.attr_id = r.attr_id
+        where g.catelog_id = #{catalogId} and v.spu_id = #{spuId}
+    </select>
+
+
+</mapper>
