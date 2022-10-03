@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: emall-cart
+
+  cloud:
+    nacos:
+      config:
+        file-extension: yml
+        server-addr: 127.0.0.1:8848
+        namespace: fab168c0-7f24-4aac-9609-075462161c30
+        group: dev
+
