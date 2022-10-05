@@ -84,7 +84,6 @@ public class MemberController {
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id){
 		MemberEntity member = memberService.getById(id);
-
         return R.ok().put("member", member);
     }
 

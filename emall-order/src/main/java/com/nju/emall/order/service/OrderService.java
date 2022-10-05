@@ -3,7 +3,10 @@ package com.nju.emall.order.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.nju.common.utils.PageUtils;
 import com.nju.emall.order.entity.OrderEntity;
+import com.nju.emall.order.vo.OrderConfirmVo;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
@@ -16,5 +19,7 @@ import java.util.Map;
 public interface OrderService extends IService<OrderEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    OrderConfirmVo confirmOrder(HttpServletRequest request);
 }
 

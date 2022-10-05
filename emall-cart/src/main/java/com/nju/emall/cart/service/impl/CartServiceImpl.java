@@ -8,6 +8,7 @@ import com.nju.common.constant.CartConstant;
 import com.nju.common.utils.R;
 import com.nju.common.vo.MemberResponseVo;
 import com.nju.emall.cart.feign.ProductFeignService;
+import com.nju.emall.cart.interceptor.CartInterceptor;
 import com.nju.emall.cart.service.CartService;
 import com.nju.emall.cart.vo.CartItemVo;
 import com.nju.emall.cart.vo.CartVo;
@@ -22,6 +23,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -122,9 +125,9 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void checkItem(Long skuId, Integer check,HttpSession session) {
+    public void checkItem(Long skuId, Integer check, HttpSession session) {
         //查询购物车里面的商品
-        CartItemVo cartItem = getCartItem(skuId,session);
+        CartItemVo cartItem = getCartItem(skuId, session);
         //修改商品状态
         cartItem.setCheck(check == 1);
 
@@ -132,32 +135,50 @@ public class CartServiceImpl implements CartService {
         String redisValue = JSON.toJSONString(cartItem);
 
         BoundHashOperations<String, Object, Object> cartOps = getOps(session);
-        cartOps.put(skuId.toString(),redisValue);
+        cartOps.put(skuId.toString(), redisValue);
     }
 
     /**
      * 修改购物项数量
      */
     @Override
-    public void changeItemCount(Long skuId, Integer num,HttpSession session) {
+    public void changeItemCount(Long skuId, Integer num, HttpSession session) {
 
         //查询购物车里面的商品
-        CartItemVo cartItem = getCartItem(skuId,session);
+        CartItemVo cartItem = getCartItem(skuId, session);
         cartItem.setCount(num);
 
         BoundHashOperations<String, Object, Object> cartOps = getOps(session);
         //序列化存入redis中
         String redisValue = JSON.toJSONString(cartItem);
-        cartOps.put(skuId.toString(),redisValue);
+        cartOps.put(skuId.toString(), redisValue);
     }
 
     /**
      * 删除购物项
      */
     @Override
-    public void deleteIdCartInfo(Integer skuId,HttpSession session) {
+    public void deleteIdCartInfo(Integer skuId, HttpSession session) {
         BoundHashOperations<String, Object, Object> cartOps = getOps(session);
         cartOps.delete(skuId.toString());
+    }
+
+    @Override
+    public List<CartItemVo> getUserCartItems() {
+        List<CartItemVo> vos = new ArrayList<>();
+        CartVo cart = getCart(CartInterceptor.threadLocal.get());
+        if (cart != null) {
+            List<CartItemVo> items = cart.getItems();
+            if (!CollectionUtils.isEmpty(items)) {
+                vos = items.stream().filter(CartItemVo::getCheck)
+                        .map(item -> {
+                            BigDecimal price = productFeignService.getPrice(item.getSkuId());
+                            item.setPrice(price);
+                            return item;
+                        }).collect(Collectors.toList());
+            }
+        }
+        return vos;
     }
 //
 //    @Override

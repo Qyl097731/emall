@@ -1014,7 +1014,7 @@
             //设置运费
             $("#payPrice").text(payPrice);
 			$("#payPriceInput").val(payPrice);
-
+            console.log(resp.data.address)
             //设置收获地址人信息
             $("#receiveAddress").text(resp.data.address.province + " " + resp.data.address.city + " " + " " + resp.data.address.region + resp.data.address.detailAddress);
             $("#receiver").text(resp.data.address.name);

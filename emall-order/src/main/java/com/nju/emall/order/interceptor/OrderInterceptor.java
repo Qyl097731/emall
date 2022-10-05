@@ -1,4 +1,4 @@
-package com.nju.emall.cart.interceptor;
+package com.nju.emall.order.interceptor;
 
 import com.nju.common.constant.AuthServerConstant;
 import com.nju.common.vo.MemberResponseVo;
@@ -15,22 +15,19 @@ import javax.servlet.http.HttpSession;
  * @author: qyl
  */
 @Component
-public class CartInterceptor implements HandlerInterceptor {
+public class OrderInterceptor implements HandlerInterceptor {
 
     public static ThreadLocal<HttpSession> threadLocal = new ThreadLocal<>();
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
+        threadLocal.set(session);
         MemberResponseVo member = (MemberResponseVo) session.getAttribute(AuthServerConstant.LOGIN_USER);
         if(member == null){
             response.sendRedirect("http://auth.emall.com/login.html");
             return false;
         }
-        threadLocal.set(session);
         return true;
     }
-
-
-
 }
