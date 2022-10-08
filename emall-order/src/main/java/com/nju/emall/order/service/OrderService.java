@@ -3,10 +3,7 @@ package com.nju.emall.order.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.nju.common.utils.PageUtils;
 import com.nju.emall.order.entity.OrderEntity;
-import com.nju.emall.order.vo.OrderConfirmVo;
-import com.nju.emall.order.vo.OrderSubmitVo;
-import com.nju.emall.order.vo.PayVo;
-import com.nju.emall.order.vo.SubmitOrderResponseVo;
+import com.nju.emall.order.vo.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,5 +29,9 @@ public interface OrderService extends IService<OrderEntity> {
     void closeOrder(OrderEntity orderEntity);
 
     PayVo getOrderPay(String orderSn);
+
+    PageUtils queryPageWithItem(Map<String, Object> params);
+
+    String handlePayResult(PayAsyncVo vo);
 }
 

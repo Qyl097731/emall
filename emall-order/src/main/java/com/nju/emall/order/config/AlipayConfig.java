@@ -39,7 +39,7 @@ public class AlipayConfig {
     /**
      *  服务器异步通知页面路径  必须外网可以正常访问.如果只是测试使用,那么设置成自己项目启动后可以访问到的一个路径,作为支付宝发送通知的路径
      */
-    public static String NOTIFY_URL = "http://localhost:8030/expense/list";
+    public static String NOTIFY_URL = "http://15050595765.gnway.cc/payed/notify";
     /**
      *   页面跳转同步通知页面路径 支付正常完成后,会访问的路径.
      */

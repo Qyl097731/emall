@@ -9,7 +9,9 @@ import com.nju.common.to.SkuHasStockTo;
 import com.nju.common.utils.R;
 import com.nju.common.vo.MemberResponseVo;
 import com.nju.emall.order.constant.OrderConstant;
+import com.nju.emall.order.constant.PayConstant;
 import com.nju.emall.order.entity.OrderItemEntity;
+import com.nju.emall.order.entity.PaymentInfoEntity;
 import com.nju.emall.order.enume.OrderStatusEnum;
 import com.nju.emall.order.feign.CartFeignSerivce;
 import com.nju.emall.order.feign.MemberFeignService;
@@ -17,6 +19,7 @@ import com.nju.emall.order.feign.ProductFeignService;
 import com.nju.emall.order.feign.WmsFeignService;
 import com.nju.emall.order.interceptor.OrderInterceptor;
 import com.nju.emall.order.service.OrderItemService;
+import com.nju.emall.order.service.PaymentInfoService;
 import com.nju.emall.order.to.OrderCreateTo;
 import com.nju.emall.order.to.SpuInfoTo;
 import com.nju.emall.order.vo.*;
@@ -83,6 +86,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     @Autowired
     RabbitTemplate rabbitTemplate;
 
+    @Autowired
+    PaymentInfoService paymentInfoService;
 
     private void saveOrder(OrderCreateTo order) {
         OrderEntity orderEntity = order.getOrder();
@@ -248,7 +253,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     public PayVo getOrderPay(String orderSn) {
         OrderEntity orderEntity = getOrderByOrderSn(orderSn);
         PayVo payVo = new PayVo();
-        payVo.setTotal_amount(orderEntity.getPayAmount().setScale(2,BigDecimal.ROUND_UP).toString());
+        payVo.setTotal_amount(orderEntity.getPayAmount().setScale(2, BigDecimal.ROUND_UP).toString());
         payVo.setOut_trade_no(orderSn);
 
 
@@ -257,6 +262,59 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         payVo.setBody(itemEntities.get(0).getSkuAttrsVals());
         return payVo;
     }
+
+    @Override
+    public PageUtils queryPageWithItem(Map<String, Object> params) {
+        HttpSession session = OrderInterceptor.threadLocal.get();
+        MemberResponseVo responseVo = (MemberResponseVo) session.getAttribute(AuthServerConstant.LOGIN_USER);
+        IPage<OrderEntity> page = this.page(
+                new Query<OrderEntity>().getPage(params),
+                new QueryWrapper<OrderEntity>().eq("member_id", responseVo.getId())
+                        .orderByDesc("id")
+        );
+        List<OrderEntity> records = page.getRecords();
+        if (!CollectionUtils.isEmpty(records)) {
+            records = records.stream().map(record -> {
+                List<OrderItemEntity> items = orderItemService.list(new QueryWrapper<OrderItemEntity>().eq("order_sn", record.getOrderSn()));
+                record.setOrderItems(items);
+                return record;
+            }).collect(Collectors.toList());
+        }
+        page.setRecords(records);
+        return new PageUtils(page);
+
+
+    }
+
+    /**
+     * 处理支付宝支付结果
+     *
+     * @param vo
+     * @return
+     */
+    @Override
+    public String handlePayResult(PayAsyncVo vo) {
+        // 保存加以流水
+        PaymentInfoEntity paymentInfoEntity = new PaymentInfoEntity();
+        paymentInfoEntity.setAlipayTradeNo(vo.getTrade_no());
+        paymentInfoEntity.setOrderSn(vo.getOut_trade_no());
+        paymentInfoEntity.setTotalAmount(new BigDecimal(vo.getTotal_amount()));
+        paymentInfoEntity.setSubject(vo.getBody());
+        paymentInfoEntity.setPaymentStatus(vo.getTrade_status());
+        paymentInfoEntity.setCreateTime(new Date());
+        paymentInfoEntity.setCallbackTime(vo.getNotify_time());
+        paymentInfoService.save(paymentInfoEntity);
+
+        // 修改订单的状态
+        String status = vo.getTrade_status();
+        if (status.equals("TRADE_SUCCESS") || status.equals("TRADE_FINISHED")) {
+            //支付成功状态
+            String orderSn = vo.getOut_trade_no(); //获取订单号
+            baseMapper.updateOrderStatus(orderSn,OrderStatusEnum.PAYED.getCode());
+        }
+        return "success";
+    }
+
 
     private OrderCreateTo createOrder() {
         OrderSubmitVo submitVo = confirmVoThreadLocal.get();

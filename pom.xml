@@ -18,6 +18,7 @@
         <module>renren-generator</module>
         <module>emall-third-party</module>
         <module>emall-cart</module>
+        <module>emall-seckill</module>
     </modules>
 
     <properties>
