@@ -29,13 +29,14 @@ public class AlipayConfig {
     /**
      * 商户私钥，您的PKCS8格式RSA2私钥
      */
-    public static String APP_PRIVATE_KEY = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCAMcjKE+7AFutUzDGlWUk1pmYo1s1DIKuXbFJilapOtmzHKD5relCA+ZfTNpUgG1b51GghVKdVCkWRGEu3oQ9wDdo2+r4NHuyBtZyjW7+iOLHMdcfDy0mnS7VJgMHEbsVln247FriPOKAudSVMx0huwznpf6bbriBl4T/u52BwIB4ans95KDxVZfc6T+G5Cxf80llKhaOQu6CWzysU1FAdxECYv2nQQx35R4DxpE/FARDCQT+al5n2D4vGuMezIE2cyG84WJPZmHp8oYzOCDMitx8SK3E4pXkSt5EhdqzNjt6KVmh5zREniaNIVMZO8xvNi9bivxp1AR1MR4yuuUefAgMBAAECggEAUCVP4C7YDFYH6OsEeti4cYdHxW6Nw9MQFEpPs3zYjf91QIoDhFRjMk9ZQV6Vmw4csXK/a18ugnc6iP0EkZhrO2YdsFPRMAjOWkW92U/KHlSNrENSkjFtKd+mRn7uJa4PUXp8gwqwdjIzyvfISxkoSr9ZXIdHPX6+mJNb0jPr0g0OWARHox85yylcefINX/r12AlrQStDjUBDw1Wng2uuIl9YfaZmJxZDmS7z3cD3g0Wxuh/68aaIVP+eBfaIACKn085Pap2ePmOt28x6C3wVyigiJNnAfchenEb+hvpO1CBi5XAn98m0jw0xPrSsrbbTtMSy7QOCA6NCmwFYotadGQKBgQDLfyaaDNaBRgEj7JdKL7/KVqlrGNmDuxdXl9nyEskKNNb+5WWdiG5xPnBuUajhFCyUalWqq+X8B3mYS3Kud84ibCpmYbTGH9zr8ZJELbdzF2kCsgsADLea3qwclOa/4SoJV36F4hDx1JleWRvyjnK9kCI9DyPURlZ9mKFItj977QKBgQChRPY9Vju+lONUzeiH7bXO4Hb4/KeaP6v2v+GuCgPqa3nhsY7reusOnV78TXc0NTL/3YX+rRfI29knlhyhdZX8I7Op7N699jORMhRgdnC+mwj0tpMvTTnJAYgxIHwro2c4KxU7W8/p9hA2qiT381ag9XBmkDtBI6SuMgwSrC+YOwKBgA8A8PequqYNY0giyYTOwHVKrnMXAfKUeMQcjhUrDWeTPcbNYxCaXoo68E8x9iGiOyc2L9rFkc9jPbPc3DfA3ZHsJ7QkwA9big5bYU1lkYEK2NM6DVWTmnXwtP/mepzrHQ5TRSDZ6iXqZuRt7YGUvyD634tg8mNUTEw2VK3nwgaBAoGACPUDmDSJ7PPoDHXDTIlvZ6Yf9YRS6sZOjs3pgvkbbpG5m0d5YKrbE1y6QdkrncK2qm9rWdHTWFydmw1DWdRmGDMDb5SwamyaQJ4/c3wglvWVccISOrZXV0q2fcQIIYRZ30zFSR64VY5NKDwbAYqKbTY0n/2yzNNl+ibddMwLeLECgYEAm9eaj1RbE5clHPrLtlHwyP8HybJzORiEZJhJFgTPCVosC0fGHmuqTE7YX4h/juuN14rZSok8lMBqFKGQRggF/F+qZB2VNrtDboS+vXraQJqJIF+vz+5vEtgZZLR15dtRKbmcHoWqirqtqWxkJ4uWZeKX12Neaa7ECt6FqjGJVNE=";
-
+    public static String APP_PRIVATE_KEY = "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCRXgDP" +
+            "+PF9gwZcr0Q6WUDBAChoGnfLvKZ31RO5DzSdSmDcqr52Zd1ww13eBR8bOD7BkaYfQoMDjME4XP+s1TZoLjy8NU5wbClmo9022yTuiRKORpH574zW+goEJdm0RxTn05kiHHQdUZtcgP1OMud7RABKY+N2L/Xaine7kO6nWJdaiQJ+7Hh69zaP8Az0BdO45CQZuEqkLLfl/+Cft8IzaYMu9gw7rZNQPR6CT++kXTicOCxMVm7R5xD9dKD/7/UnBts97tse2EKEkXEYr5fZjTeNovVPmNDy2yFqIdmeeGpLhntgU14gJY+dlTKijWnKz+RGGPDCQiMBzkqf3+8ZAgMBAAECggEAPGhV6hbHM6MZJ7bloWGpmQpZwDkPgyiX/MAc/BAnix13dvu1PjpCdTOadEKolIUg/wtpfyAClZ0ORj/PN6E6hLyCHKwCNpGb+r0pljwm8sEfZuRIkRZM7qDlPKgF+fZ354Z04kn0rqJU73Hi0XYx33V4sXEk+t4fSnu0Gcu2gO+cLGS3sxbylEwh3qJ9/ZcLgF0cXpjbWE0s5DMoA9W20Rb85TNH9gH928VMsyQyEWoVnfS5Ak6cE6A1mhs//zrz61JwOcBmbmMsOQl/UG3jjStFwkzf/LEzIq7bIyMlBYyjIwQ9G00Tag30uaCcoMLVN4n7hA5phtxmf7f4YZJ5yQKBgQDZYCon8i39Ko7DN9cRkFhT6FIw+v9tu88aLHXr9vnZaPMrsc4QKMP4HLWoV/dQ5tf3Dh/QWPo+qxb2dh7dqj1qrxVtyXBNYIcLdgqJU2X9xYLfdrGwoe+VxJfVL0mT3Gph+7QYj6i2bE01PzGpGn99N4lbvtHIqcqKaxDwxXFuuwKBgQCrMl4QMCXY7TGNi04y8VODF2vyq+rovaWqWG+wpm6V/OxjJKTcwnyHnSfXGB7a4qFfCHrrLamfLq/7TIBwKK5k4nq/SjA7JcI8L+sgAJJNQFz2JT5KDypoZVjYI8ZHhMnp2+geH8aCj9SHfiEm5MMs587XqEqep8fNkPHgmOyeOwKBgA4EV3OP+Es07VPFTAcD6c4vUu15ofLvg2FKsKfwmxfb3qJYqtL77fcX0tbyJS6AVDjIHmEO+8QCwE5QO5lLmv5AH/+eV7GFoe+pQvCsAg2lKNVEEB01s/9SWAAVNodkVS/QTUKwMM7imO/wDUG8RbBLXn4eBeUMndTjJoqAENp1AoGAdgfD0mVfsq/V+kCRKY44hakgQ69DxjL6hPd0Cda1Z7N5RuF8yLdOJDG1xhZbL44Qs/SkyoAw8g6+RgP4iVuC4QtElZ4Qorbls5lWAjpio+A8N3h1+Zl7I368Qkhn6+chTprO7fX6ZwnC/ad4M9iEt/EaKpVc3QXQO2ozWSYV/QECgYBgPEl5AyGOt3yt1fdNGN/lCMzNnDtCdJEetKH/rt4RyrgvBkU7yC5DIG8RVsDpmwLPgXBa/P6inUGql+QA8Dg2/si5lV4XHhMAHDrWRwIPqwjPAjk8gAwe7D0A9qaQ5uc8Cp4S0Jn+KnKMqIGRpbgMYr0reUn1haaCF4WaFIP2BA==";
     /**
      * 支付宝公钥,查看地址：https://openhome.alipay.com/platform/appDaily.htm 对应APPID下的支付宝公钥。
      */
 
-    public static String ALIPAY_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3sWVTzdsgBbIcrk092fJY73aLVPwKm5GzPDkBJaAqgdvQ7QbNqaLC5YWmp69WIq80fEn0GdoWexFrLagnXBBOk4X7DigOgeRK+BTKVwzzChCaasf0CLjm4ck2M2BA1g+lnNb7qecPrNrOVx+kS0FQ4MxbOmYGVHJCV2qKQH4tuw5CmB8m8D098c7uMW2c5MRH+QJDKbNfxI6SZ2VdDN4l6dx5MtdmEgkOjMeGnoBOxCJIDjtTygj9L9wlE1iJakJoumt6DLW0AUPC+M484P6+V1FrvKh5c0glsGfy2Oimfv8TPPiXREaBmQ+XKuKiZzIYdL+DtPbEanoRoxyUQIDAQAB";
+    public static String ALIPAY_PUBLIC_KEY =
+            "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3sWVTzdsgBbIcrk092fJY73aLVPwKm5//GzPDkBJaAqgdvQ7QbNqaLC5YWmp69WIq80fEn0GdoWexFrLagnXBBOk4X7DigOgeRK+BTKVwzzChCaasf0CLjm4ck2M2BA1g+lnNb7qecPrNrOVx+kS0/FQ4MxbOm/YGVHJCV2qKQH4tuw5CmB8m8D098c7uMW2c5MRH+QJDKbNfxI6SZ2VdDN4l6dx5MtdmEgkOjMeGnoBOxCJIDjtTygj9L9wlE1iJakJoumt6DLW0AUPC+M484P6+V1FrvKh5c0glsGfy2Oimfv8TPPiXREaBmQ+XKuKiZzIYdL+DtPbEanoRoxyUQIDAQAB";
     /**
      *  服务器异步通知页面路径  必须外网可以正常访问.如果只是测试使用,那么设置成自己项目启动后可以访问到的一个路径,作为支付宝发送通知的路径
      */
@@ -82,10 +83,14 @@ public class AlipayConfig {
         String subject = vo.getSubject();
         // 商品描述 可空
         String body = vo.getBody();
+        //订单超时时间
+        String timeout = "1m";
+
         request.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\","
                 + "\"total_amount\":\""+ total_amount +"\","
                 + "\"subject\":\""+ subject +"\","
                 + "\"body\":\""+ body +"\","
+                + "\"timeout_express\":\""+timeout+"\","
                 + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
         String form = "";
         try {

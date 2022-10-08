@@ -148,6 +148,7 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
          */
         WareOrderTaskEntity wareOrderTaskEntity = new WareOrderTaskEntity();
         wareOrderTaskEntity.setOrderSn(vo.getOrderSn());
+        wareOrderTaskEntity.setTaskStatus(1);
         orderTaskService.save(wareOrderTaskEntity);
 
         List<LockStockResultVo> resultVos = new ArrayList<>();
@@ -246,6 +247,7 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
             //无需解锁
         }
     }
+
     // 防止订单卡顿 ， 库存消息优先到期， 查出订单的状态一直滞后，什么都不做就走了
     // 导致库存永远无法解锁
     @Transactional
@@ -257,9 +259,10 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         Long id = task.getId();
         List<WareOrderTaskDetailEntity> list = orderTaskDetailService.list(new QueryWrapper<WareOrderTaskDetailEntity>().eq("task_id", id).eq("lock_status", 1));
         for (WareOrderTaskDetailEntity entity : list) {
-            unlockStock(entity.getSkuId(),entity.getWareId(),entity.getSkuNum(),id);
+            unlockStock(entity.getSkuId(), entity.getWareId(), entity.getSkuNum(), id);
         }
-
+        task.setTaskStatus(2);
+        orderTaskService.updateById(task);
     }
 
     @Data
