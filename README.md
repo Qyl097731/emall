@@ -1,5 +1,4 @@
 # emall
-##电商平台
 
 可以不看
 emall-sso-client、emall-sso-server两个模块，仅作为SSO测试案例
