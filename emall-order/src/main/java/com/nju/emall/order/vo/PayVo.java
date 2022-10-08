@@ -2,6 +2,9 @@ package com.nju.emall.order.vo;
 
 import lombok.Data;
 
+/**
+ * @author asus
+ */
 @Data
 public class PayVo {
 

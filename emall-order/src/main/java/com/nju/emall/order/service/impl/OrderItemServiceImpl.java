@@ -1,13 +1,7 @@
 package com.nju.emall.order.service.impl;
 
-import com.nju.emall.order.entity.OrderReturnReasonEntity;
-import com.rabbitmq.client.Channel;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageProperties;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;

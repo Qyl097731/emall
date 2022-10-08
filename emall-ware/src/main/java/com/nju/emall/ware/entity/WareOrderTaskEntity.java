@@ -9,10 +9,7 @@ import lombok.Data;
 
 /**
  * 库存工作单
- *
- * @author qyl
- * @email 553579048@qq.com
- * @date 2022-09-15 21:46:19
+ * @author asus
  */
 @Data
 @TableName("wms_ware_order_task")
@@ -23,7 +20,6 @@ public class WareOrderTaskEntity implements Serializable {
 	 * id
 	 */
 	@TableId
-
 	private Long id;
 	/**
 	 * order_id

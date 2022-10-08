@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.nju.common.utils.PageUtils;
 import com.nju.emall.order.entity.OrderEntity;
 import com.nju.emall.order.vo.OrderConfirmVo;
+import com.nju.emall.order.vo.OrderSubmitVo;
+import com.nju.emall.order.vo.PayVo;
+import com.nju.emall.order.vo.SubmitOrderResponseVo;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,5 +24,13 @@ public interface OrderService extends IService<OrderEntity> {
     PageUtils queryPage(Map<String, Object> params);
 
     OrderConfirmVo confirmOrder(HttpServletRequest request);
+
+    SubmitOrderResponseVo submitOrder(OrderSubmitVo vo);
+
+    OrderEntity getOrderByOrderSn(String orderSn);
+
+    void closeOrder(OrderEntity orderEntity);
+
+    PayVo getOrderPay(String orderSn);
 }
 

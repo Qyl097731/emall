@@ -9,4 +9,7 @@ spring:
         server-addr: 127.0.0.1:8848
         namespace: 29cf3be4-30f9-4ef7-b15d-115ccb512d46
         group: dev
-
+    alibaba:
+      seata:
+        #自定义事务组名称需要与seata-server中的对应
+        tx-service-group: emall-ware-fescar-service-group

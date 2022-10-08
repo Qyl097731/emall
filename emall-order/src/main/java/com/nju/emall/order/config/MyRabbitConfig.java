@@ -32,8 +32,8 @@ public class MyRabbitConfig {
      * MyRabbitConfig对象创建完成之后 执行这个方法
      *
      * 消费端确认(保证每个消息都被正确消费，此时才可以broker删除这个消息)
-     *  1、默认自动确认，只要消息接收到，客户端自动确认，服务器就会移除这个消息，
-     *      但是当收到很多消息后，会自动回复ACK，但如果只有一个消息处理成功就宕机，就会发生消息丢失
+     *  1、默认自动确认，只要消息接收到，客户端自动返回ACK确认，服务器就会移除这个消息，
+     *      但是有可能在收到消息之后就宕机了 ， 没来得及处理，消息就丢失了
      *  2、手动确认，只要没有明确告诉MQ被接收，没有ACK，消息就一直都是Unacked
      *      即使Consumer宕机，消息不会丢失，会重新变为Ready，下一次新的Consumer链接进来就发给它
      *
@@ -49,6 +49,11 @@ public class MyRabbitConfig {
          */
         //设置确认回调
         rabbitTemplate.setConfirmCallback((correlationData,ack,cause) -> {
+            /**
+             * 1.做好消息确认机制  手动ACK
+             * 2.每一个发送的消息都在数据库做好记录。定期将失败的消息再次发送
+             */
+            // 服务器收到了
             System.out.println("confirm...correlationData["+correlationData+"]==>ack:["+ack+"]==>cause:["+cause+"]");
         });
         // 只要消息没有投递到队列。就会出发这个失败回调
@@ -61,6 +66,7 @@ public class MyRabbitConfig {
          * routingKey：当时这个消息用哪个路邮键
          */
         rabbitTemplate.setReturnCallback((message,replyCode,replyText,exchange,routingKey) -> {
+            // 报错误了 ， 修改数据库当前消息的状态 把状态改为错误
             System.out.println("Fail Message["+message+"]==>replyCode["+replyCode+"]" +
                     "==>replyText["+replyText+"]==>exchange["+exchange+"]==>routingKey["+routingKey+"]");
         });

@@ -9,4 +9,3 @@ spring:
         server-addr: 127.0.0.1:8848
         namespace: 2f2e82b1-15b1-4ed9-a9fd-d79ac8903427
         group: dev
-
