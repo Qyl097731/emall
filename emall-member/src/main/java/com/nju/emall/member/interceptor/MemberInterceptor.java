@@ -37,9 +37,9 @@ public class MemberInterceptor implements HandlerInterceptor {
             //未登录，返回登录页面
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('请先进行登录，再进行后续操作！');location.href='http://auth.gulimall.com/login.html'</script>");
+            out.println("<script>alert('请先进行登录，再进行后续操作！');location.href='http://auth.emall.com/login.html'</script>");
             // session.setAttribute("msg", "请先进行登录");
-            // response.sendRedirect("http://auth.gulimall.com/login.html");
+            // response.sendRedirect("http://auth.emall.com/login.html");
             return false;
         }
         return true;

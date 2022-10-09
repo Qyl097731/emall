@@ -1,8 +1,11 @@
 package com.nju.emall.product.service.impl;
 
+import com.alibaba.fastjson.TypeReference;
 import com.nju.common.to.SkuReductionTo;
 import com.nju.common.to.SpuBoundTo;
+import com.nju.common.utils.R;
 import com.nju.emall.product.entity.*;
+import com.nju.emall.product.feign.SeckillFeignService;
 import com.nju.emall.product.service.*;
 import com.nju.emall.product.vo.*;
 import org.apache.commons.collections.CollectionUtils;
@@ -41,6 +44,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
     @Autowired
     SkuSaleAttrValueService skuSaleAttrValueService;
+
+    @Autowired
+    SeckillFeignService seckillFeignService;
 
     @Autowired
     ThreadPoolExecutor executor;
@@ -87,7 +93,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
     @Override
     public List<SkuInfoEntity> listSkuBySpuId(Long spuId) {
-        return baseMapper.selectList(new QueryWrapper<SkuInfoEntity>().eq("spu_id",spuId));
+        return baseMapper.selectList(new QueryWrapper<SkuInfoEntity>().eq("spu_id", spuId));
     }
 
     @Override
@@ -121,7 +127,19 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             skuItemVo.setImages(images);
         }, executor);
 
-        CompletableFuture.allOf(saleAttrFeature,descFeature,baseAttrFeature,imageFeature).join();
+        // 获取当前sku是否参与秒杀
+        CompletableFuture<Void> seckill = CompletableFuture.runAsync(() -> {
+            R r = seckillFeignService.getSkuSeckilInfo(skuId);
+            if (r.getCode() == 0) {
+                SeckillSkuVo data = r.getData(new TypeReference<SeckillSkuVo>() {
+                });
+                skuItemVo.setSeckillSkuVo(data);
+            }
+        }, executor);
+
+        CompletableFuture.allOf(saleAttrFeature, descFeature, baseAttrFeature, imageFeature,seckill).join();
+
+        System.out.println(skuItemVo);
 
         return skuItemVo;
     }
