@@ -19,6 +19,7 @@
         <module>emall-third-party</module>
         <module>emall-cart</module>
         <module>emall-seckill</module>
+        <module>emall-search</module>
     </modules>
 
     <properties>
